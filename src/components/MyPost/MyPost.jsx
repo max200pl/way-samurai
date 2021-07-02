@@ -11,7 +11,8 @@ const MyPost = () => {
       </div>
       <h3>New posts</h3>
       <div className={s.posts}>
-        <Post />
+        <Post message="hello" />
+        <Post message="Im Macks" />
       </div>
       {/* posts */}
     </div>
