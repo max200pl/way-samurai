@@ -4,8 +4,11 @@ const Post = (props) => {
   return (
     <div className={s.item}>
       <span>{props.message}</span>
-      <span>like</span>
-      <span>DisLike</span>
+      <div className={s.post__likes}>
+        <span>Like: {props.likeCount}</span>
+        <span> ------------ </span>
+        <span>Dis Like: {props.likeCount}</span>
+      </div>
     </div>
   );
 };
