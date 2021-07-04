@@ -1,0 +1,11 @@
+.profileInfo {
+    grid-area: c;
+    background-color: blue;
+    display: flex;
+}
+
+.profileInfo > img {
+    max-width: 40px;
+    padding-right: 40px;
+    display: block;
+}

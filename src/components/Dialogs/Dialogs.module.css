@@ -14,7 +14,7 @@
     margin: 10px;
 }
 
-.dialog__item .active {
+.dialog__item.active {
     font-size: 20px;
     color: green;
     box-shadow: inset 2px 3px 4px #000;
