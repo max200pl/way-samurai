@@ -5,3 +5,7 @@
     grid-gap: 10px;
     background-color: green;
 }
+
+.header > div > a.activeLink {
+    color: blue;
+}
