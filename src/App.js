@@ -20,7 +20,9 @@ const App = (props) =>
           />} />
         <Route exact path="/profile" render={() =>
           <Profile
-            state={props.state.profilePage} addPost={props.addPost}
+            profilePage={props.state.profilePage}
+            addPost={props.addPost}
+            updateNewPostText={props.updateNewPostText}
           />} />
       </div>
       <footer className="footer"></footer>

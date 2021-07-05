@@ -5,7 +5,8 @@ let state = {
           postData: [
                { id: 1, message: "hi, how are you", likeCount: 12 },
                { id: 2, message: "Its my first post", likeCount: 10 },
-          ]
+          ],
+          newPostText: "new post text"
      },
 
      dialogPage: {
@@ -29,11 +30,17 @@ export let addPost = (postMessage) =>
 {
      let newPost = {
           id: 5,
-          message: postMessage,
+          message: state.profilePage.newPostText,
           likeCount: 0
      };
 
      state.profilePage.postData.push(newPost)
+     state.profilePage.newPostText = ""
+     rerenderEntireTree(state)
+}
+export let updateNewPostText = (newText) =>
+{
+     state.profilePage.newPostText = newText;
      rerenderEntireTree(state)
 }
 
