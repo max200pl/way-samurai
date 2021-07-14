@@ -1,0 +1,6 @@
+.nav {
+    font-size: 20px;
+    grid-area: n;
+    width: 200px;
+    background-color: yellow;
+}
