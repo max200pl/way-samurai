@@ -1,3 +1,6 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 let store = {
      _state: {
           profilePage: {
@@ -39,7 +42,8 @@ let store = {
           this._callSubscriber = observer // наблюдатель = observer
      },
 
-     dispatch(action)
+     dispatch(action) // dispatch - отправить; action это object 
+     //{type: "ADD-POST"}
      {
 
           if (action.type === 'ADD-POST') {
@@ -74,5 +78,11 @@ let store = {
 
      }
 }
+
+//* ФУНКЦИИ ВСПОМОГАТЕЛЬНЫЕ - для передачи типа action для dispatch(action)
+export const addPostActionCreator = () => ({ type: ADD_POST, })
+
+export const updateNewPostTextActionCreator = (text) =>
+     ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 
 export default store;
