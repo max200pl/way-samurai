@@ -6,14 +6,14 @@ const MyPost = (props) => {
     <Post message={post.message} likeCount={post.likeCount} />
   ));
 
-  let NewPostElement = React.createRef();
+  let NewPostElement = React.createRef(); //создаем ссылку на элемент стучимся к DOM element
 
   let addPost = () => {
     props.dispatch({ type: "ADD-POST" });
   };
 
   let onPostChange = () => {
-    let text = NewPostElement.current.value;
+    let text = NewPostElement.current.value; // получаем данные с textarea
     let action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
     props.dispatch(action);
   };

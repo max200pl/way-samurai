@@ -17,7 +17,8 @@ let store = {
                     { id: 1, message: "Hi" },
                     { id: 2, message: "Hello" },
                     { id: 3, message: "Yo" },
-               ]
+               ],
+               newSendMessage: "new message"
           },
 
           sidebar: {
@@ -40,7 +41,9 @@ let store = {
 
      dispatch(action)
      {
+
           if (action.type === 'ADD-POST') {
+
                let newPost = {
                     id: 5,
                     message: this._state.profilePage.newPostText,
@@ -53,9 +56,23 @@ let store = {
           } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
                this._state.profilePage.newPostText = action.newText;
                this._callSubscriber(this._state)
-          }
-     }
 
+          } else if (action.type === 'ADD-SEND') {
+               let newSend = {
+                    id: 5,
+                    message: this._state.dialogPage.newSendMessage
+               };
+               this._state.dialogPage.message.push(newSend)
+               this._state.dialogPage.newSendMessage = ""
+               this._callSubscriber(this._state)
+
+          }
+          else if (action.type === 'UPDATE-NEW-SEND-TEXT') {
+               this._state.dialogPage.newSendMessage = action.newText;
+               this._callSubscriber(this._state)
+          }
+
+     }
 }
 
 export default store;
