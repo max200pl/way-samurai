@@ -1,5 +1,7 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+const SEND_MESSAGE = "SEND_MESSAGE";
 
 let store = {
      _state: {
@@ -21,7 +23,7 @@ let store = {
                     { id: 2, message: "Hello" },
                     { id: 3, message: "Yo" },
                ],
-               newSendMessage: "new message"
+               newSendBody: ""
           },
 
           sidebar: {
@@ -61,18 +63,14 @@ let store = {
                this._state.profilePage.newPostText = action.newText;
                this._callSubscriber(this._state)
 
-          } else if (action.type === 'ADD-SEND') {
-               let newSend = {
-                    id: 5,
-                    message: this._state.dialogPage.newSendMessage
-               };
-               this._state.dialogPage.message.push(newSend)
-               this._state.dialogPage.newSendMessage = ""
-               this._callSubscriber(this._state)
+          } else if (action.type === 'SEND_MESSAGE') {
+               let body = this._state.dialogPage.newSendBody;
 
-          }
-          else if (action.type === 'UPDATE-NEW-SEND-TEXT') {
-               this._state.dialogPage.newSendMessage = action.newText;
+               this._state.dialogPage.newSendBody = "";
+               this._state.dialogPage.message.push({ id: 6, message: body })
+               this._callSubscriber(this._state)
+          } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+               this._state.dialogPage.newSendBody = action.body;
                this._callSubscriber(this._state)
           }
 
@@ -84,5 +82,10 @@ export const addPostActionCreator = () => ({ type: ADD_POST, })
 
 export const updateNewPostTextActionCreator = (text) =>
      ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+
+export const sendMessageCreator = () => ({ type: SEND_MESSAGE, })
+
+export const updateNewMessageBodyCreator = (body) =>
+     ({ type: UPDATE_NEW_MESSAGE_BODY, body: body })
 
 export default store;
