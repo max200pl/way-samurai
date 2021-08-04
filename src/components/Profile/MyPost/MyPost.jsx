@@ -1,26 +1,20 @@
 import React from "react";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
 import s from "./MyPost.module.css";
 import Post from "./Post/Post";
 const MyPost = (props) => {
-  let postElements = props.postData.map((post) => (
+  let postElements = props.posts.map((post) => (
     <Post message={post.message} likeCount={post.likeCount} />
   ));
 
   let NewPostElement = React.createRef(); //создаем ссылку на элемент стучимся к DOM element
 
   let addPost = () => {
-    props.dispatch(addPostActionCreator());
+    props.addPost();
   };
 
   let onPostChange = () => {
     let text = NewPostElement.current.value; // получаем данные с textarea
-    //let action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
-    let action = updateNewPostTextActionCreator(text);
-    props.dispatch(action);
+    props.updateNewPostText(text);
   };
 
   return (
