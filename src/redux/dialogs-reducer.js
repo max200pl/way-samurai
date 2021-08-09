@@ -16,15 +16,23 @@ let initialState = {
 
 export const dialogsReducer = (state = initialState, action) =>
 {
+
      switch (action.type) {
+          case UPDATE_NEW_MESSAGE_BODY:
+               return {
+                    ...state,
+                    newSendBody: action.body
+               }
+
           case SEND_MESSAGE:
                let body = state.newSendBody;
-               state.newSendBody = "";
-               state.message.push({ id: 6, message: body })
-               return state
-          case UPDATE_NEW_MESSAGE_BODY:
-               state.newSendBody = action.body;
-               return state
+
+               return {
+                    ...state, // получаем наш state
+                    newSendBody: '', // перезаписываем newSendBody в пустую строку 
+                    message: [...state.message, { id: 6, message: body }], // переопределяем свойство messages у копии state и добавляем в конец массива новый объект  
+               };
+
           default:
                return state
      }
