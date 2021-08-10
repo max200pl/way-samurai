@@ -1,3 +1,8 @@
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
+
 let store = {
      _state: {
           profilePage: {
@@ -17,7 +22,8 @@ let store = {
                     { id: 1, message: "Hi" },
                     { id: 2, message: "Hello" },
                     { id: 3, message: "Yo" },
-               ]
+               ],
+               newSendBody: ""
           },
 
           sidebar: {
@@ -38,24 +44,17 @@ let store = {
           this._callSubscriber = observer // наблюдатель = observer
      },
 
-     dispatch(action)
+     dispatch(action) // dispatch - отправить; action это object 
+     //{type: "ADD-POST"}
      {
-          if (action.type === 'ADD-POST') {
-               let newPost = {
-                    id: 5,
-                    message: this._state.profilePage.newPostText,
-                    likeCount: 0
-               };
+          this._state.profilePage = profileReducer(this._state.profilePage, action);
+          this._state.dialogPage = dialogsReducer(this._state.dialogPage, action);
+          this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-               this._state.profilePage.postData.push(newPost)
-               this._state.profilePage.newPostText = ""
-               this._callSubscriber(this._state);
-          } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-               this._state.profilePage.newPostText = action.newText;
-               this._callSubscriber(this._state)
-          }
+          this._callSubscriber(this._state);
      }
-
 }
+
+
 
 export default store;

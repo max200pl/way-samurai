@@ -2,20 +2,19 @@ import React from "react";
 import s from "./MyPost.module.css";
 import Post from "./Post/Post";
 const MyPost = (props) => {
-  let postElements = props.postData.map((post) => (
-    <Post message={post.message} likeCount={post.likeCount} />
+  let postElements = props.posts.map((post) => (
+    <Post message={post.message} likeCount={post.likeCount} key={post.id} />
   ));
 
-  let NewPostElement = React.createRef();
+  let NewPostElement = React.createRef(); //создаем ссылку на элемент стучимся к DOM element
 
   let addPost = () => {
-    props.dispatch({ type: "ADD-POST" });
+    props.addPost();
   };
 
   let onPostChange = () => {
-    let text = NewPostElement.current.value;
-    let action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
-    props.dispatch(action);
+    let text = NewPostElement.current.value; // получаем данные с textarea
+    props.updateNewPostText(text);
   };
 
   return (
