@@ -18,6 +18,12 @@ const Navbar = () => {
       </div>
 
       <div>
+        <NavLink to="/users" activeClassName={s.activeLink}>
+          Users
+        </NavLink>
+      </div>
+
+      <div>
         <a href="#e">sitting</a>
       </div>
     </nav>
