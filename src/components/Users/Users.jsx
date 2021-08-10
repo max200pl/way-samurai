@@ -4,9 +4,11 @@ import axios from "axios";
 import userPhoto from "../../assets/img/avatar.png";
 
 class Users extends React.Component {
-  constructor(props) {
+  /*  constructor(props) { // по умолчанию за кадром 
     super(props);
-    alert("new");
+  } */
+
+  componentDidMount() {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then((response) => {
