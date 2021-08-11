@@ -8,7 +8,8 @@ let initialState = {
      users: [],
      pageSize: 5, // отображение количества пользователей на странице 
      totalUsersCount: 0, // всего пользователей в БД
-     currentPage: 2, // начальная страница 
+     currentPage: 1, // начальная страница 
+     isFetching: false
 }
 
 const usersReducer = (state = initialState, action) =>
