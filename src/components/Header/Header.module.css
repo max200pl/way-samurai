@@ -9,3 +9,8 @@
 .header > div > a.activeLink {
     color: blue;
 }
+
+.loginBlock {
+    float: right;
+    padding: 20px;
+}
