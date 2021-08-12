@@ -23,7 +23,10 @@ class UsersContainer extends React.Component {
     axios
       .get(
         //получаем выбранную заданную изначально страницу и количество пользователей
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);
@@ -39,7 +42,10 @@ class UsersContainer extends React.Component {
     axios
       .get(
         // получаем данные по URL страницы которую получили с сервера
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);

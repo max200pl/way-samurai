@@ -49,6 +49,9 @@ let Users = (props) => {
                         `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
                         {
                           withCredentials: true, // даем добро для получения cookie
+                          headers: {
+                            "API-KEY": "c73c4104-9aa8-4103-849d-9d985ba9d1ef",
+                          },
                         }
                       )
                       .then((response) => {
@@ -69,6 +72,9 @@ let Users = (props) => {
                         {},
                         {
                           withCredentials: true, // даем добро для получения cookie
+                          headers: {
+                            "API-KEY": "c73c4104-9aa8-4103-849d-9d985ba9d1ef",
+                          },
                         }
                       )
                       .then((response) => {
