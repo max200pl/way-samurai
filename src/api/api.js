@@ -36,5 +36,15 @@ export const usersAPI = {
      {
           return instance
                .get(`profile/` + userId)
+     },
+
+     auth()
+     {
+          return instance
+               .get(
+                    //получаем выбранную заданную изначально страницу и количество пользователей
+                    `auth/me`,
+               )
+
      }
 }
