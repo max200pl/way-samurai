@@ -4,6 +4,7 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   setUsers,
+  toggleFollowingProgress,
   toggleIsFetching,
   unFollow,
 } from "../../redux/users-reducer";
@@ -57,7 +58,7 @@ class UsersContainer extends React.Component {
     return (
       <>
         <div>{this.props.isFetching ? <PreLouder /> : null}</div>
-        <Users // прокидываем данные и callback function
+        <Users // прокидываем данные и callback function Users
           totalUsersCount={this.props.totalUsersCount} // всего пользователей
           pageSize={this.props.pageSize} // размер страницы
           currentPage={this.props.currentPage} // текущая страница
@@ -65,6 +66,8 @@ class UsersContainer extends React.Component {
           users={this.props.users} // все пользователи в State которые пришли с API для отрисовки количества страниц
           unFollow={this.props.unFollow} //
           follow={this.props.follow}
+          toggleFollowingProgress={this.props.toggleFollowingProgress}
+          followingInProgress={this.props.followingInProgress}
         />
       </>
     );
@@ -72,7 +75,7 @@ class UsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) =>
-  // передаем данные из state в Users
+  // передаем данные из state в UsersContainer
   {
     return {
       users: state.usersPage.users,
@@ -80,44 +83,16 @@ let mapStateToProps = (state) =>
       totalUsersCount: state.usersPage.totalUsersCount,
       currentPage: state.usersPage.currentPage,
       isFetching: state.usersPage.isFetching, // получение флага загрузки данных
+      followingInProgress: state.usersPage.followingInProgress, // прокидываем данные для флага подписки пользователя в компоненту UsersContainer
     };
   };
-
-/* let mapDispatchToProps = (dispatch) =>
-  // компонента Users получает callback функции для управления State из контейнерной функции
-  {
-    return {
-      follow: (userId) => {
-        dispatch(followAC(userId));
-      },
-      unFollow: (userId) => {
-        dispatch(unFollowAC(userId));
-      },
-      setUsers: (users) => {
-        // получение users при первой загрузке
-        dispatch(setUsersAC(users));
-      },
-      setCurrentPage: (pageNumber) => {
-        // для получения нужной страницы с сервера по нажатию на span
-        dispatch(setCurrentPageAC(pageNumber));
-      },
-      setTotalUsersCount: (totalCount) => {
-        // для получения количества страниц при первой загрузке
-        dispatch(setTotalUsersCountAC(totalCount));
-      },
-
-      toggleIsFetching: (isFetching) => {
-        dispatch(toggleIsFetchingAC(isFetching));
-      },
-    };
-  };
- */
 
 export default connect(mapStateToProps, {
   follow,
+  unFollow,
   setCurrentPage,
   setTotalUsersCount,
   setUsers,
   toggleIsFetching,
-  unFollow,
+  toggleFollowingProgress,
 })(UsersContainer);

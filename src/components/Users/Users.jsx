@@ -43,14 +43,16 @@ let Users = (props) => {
             <div>
               {u.followed ? (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)} // если в массиве хоть id на которую нажали есть в массиве true и кнопка disable
                   onClick={() => {
+                    props.toggleFollowingProgress(true, u.id);
                     axios
                       .delete(
                         `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
                         {
                           withCredentials: true, // даем добро для получения cookie
                           headers: {
-                            "API-KEY": "c73c4104-9aa8-4103-849d-9d985ba9d1ef",
+                            "API-KEY": "43a21dc1-38bb-4ad8-b192-16e838a5eef1",
                           },
                         }
                       )
@@ -58,6 +60,7 @@ let Users = (props) => {
                         if (response.data.resultCode === 0) {
                           props.unFollow(u.id);
                         }
+                        props.toggleFollowingProgress(false, u.id);
                       });
                   }}
                 >
@@ -65,7 +68,9 @@ let Users = (props) => {
                 </button>
               ) : (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)} // если в массиве хоть id на которую нажали есть в массиве true и кнопка disable
                   onClick={() => {
+                    props.toggleFollowingProgress(true, u.id);
                     axios
                       .post(
                         `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
@@ -73,7 +78,7 @@ let Users = (props) => {
                         {
                           withCredentials: true, // даем добро для получения cookie
                           headers: {
-                            "API-KEY": "c73c4104-9aa8-4103-849d-9d985ba9d1ef",
+                            "API-KEY": "43a21dc1-38bb-4ad8-b192-16e838a5eef1",
                           },
                         }
                       )
@@ -81,6 +86,7 @@ let Users = (props) => {
                         if (response.data.resultCode === 0) {
                           props.follow(u.id);
                         }
+                        props.toggleFollowingProgress(false, u.id);
                       });
                   }}
                 >
