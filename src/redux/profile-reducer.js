@@ -57,16 +57,14 @@ export const setUserProfile = (profile) =>
      ({ type: SET_USER_PROFILE, profile })
 
 
-export const getProfile = (userId) =>
+export const getUserProfile = (userId) => (dispatch) =>
 {
-     return (dispatch) =>
+     usersAPI.getProfile(userId).then((response) =>
      {
-          usersAPI.getProfile(userId).then((response) =>
-          {
-               dispatch(setUserProfile(response.data)); // получили пачку пользователей
-          });
-     }
+          dispatch(setUserProfile(response.data)); // получили пачку пользователей
+     });
 }
+
 
 
 export default profileReducer;
