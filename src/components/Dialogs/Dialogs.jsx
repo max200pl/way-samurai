@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./DialogsMessage/DialogsMessage";
@@ -23,6 +24,9 @@ const Dialogs = (props) => {
     let body = e.target.value; // получили данные с формы
     props.updateNewMessageBody(body);
   };
+
+  if (!props.isAuth) return <Redirect to={"/login"} />;
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialog__wrapper}>{dialogsElements}</div>

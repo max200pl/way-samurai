@@ -1,14 +1,16 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import {
   sendMessageCreator,
   updateNewMessageBodyCreator,
 } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 
-const mapStateToProps = (state) => {
+const mapStateToPropsForRedirect = (state) => {
   // берем данные из State и засовываем в Props презентационной компоненте
   return {
-    dialogPage: state.dialogPage,
+    dialogPage: state.dialogPage, // прокидываем данные в Dialogs компоненту
   };
 };
 
@@ -24,10 +26,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-// вызывали функцию connect()(Dialogs) -> Dialogs подключили к store
-// superDialogsContainer === новая контейнерная компонента
-// внутри контейнерной компоненты рендерид презентационную компоненту
-// внутрь презентационной компоненты передает через функции в атрибуты данные и функции
-
-export default DialogsContainer;
+export default compose(
+  connect(mapStateToPropsForRedirect, mapDispatchToProps),
+  withAuthRedirect //* HOC = Hight Order Component Redirect to other page
+)(Dialogs);

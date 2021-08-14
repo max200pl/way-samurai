@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import { getUserProfile } from "../../redux/profile-reducer";
 import { withRouter } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -11,7 +13,7 @@ class ProfileContainer extends React.Component {
       userId = 2;
     }
 
-    this.props.getUserProfile(userId);
+    this.props.getUserProfile(userId); // thunk
   }
 
   render() {
@@ -20,12 +22,11 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-  // когда функция возвращает объект нужно ставить скобки
   profile: state.profilePage.profile,
 });
 
-// withRouter компонента высшего порядка ==> возвращает новую компоненту с данными URL строки браузера
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-export default connect(mapStateToProps, { getUserProfile })(
-  WithUrlDataContainerComponent // получает данные из Store и уже имеем данные с URL
-);
+export default compose(
+  connect(mapStateToProps, { getUserProfile }),
+  withRouter, //* HOC для редиректа если пользователь не авторизирован
+  withAuthRedirect
+)(ProfileContainer);

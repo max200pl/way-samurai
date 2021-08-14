@@ -6,6 +6,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/login/login";
 
 const App = (props) =>
 {
@@ -21,6 +22,10 @@ const App = (props) =>
           <ProfileContainer />} />
         <Route exact path="/users" render={() =>
           <UsersContainer />} />
+        <Route exact path="/login" render={() =>
+          <LoginPage />} />
+
+
       </div>
       <footer className="footer"></footer>
     </div>
