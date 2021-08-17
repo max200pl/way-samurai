@@ -2,6 +2,7 @@
     grid-area: c;
     background-color: blue;
     display: flex;
+    flex-direction: column;
 }
 
 .profileInfo > img {

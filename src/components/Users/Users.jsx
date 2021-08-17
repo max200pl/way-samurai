@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/img/avatar.png";
+import { NavLink } from "react-router-dom";
 
 let Users = (props) => {
   let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -30,15 +31,18 @@ let Users = (props) => {
         <div key={u.id}>
           <span>
             <div>
-              <img
-                src={u.photos.small != null ? u.photos.small : userPhoto}
-                alt=""
-                className={styles.userPhoto}
-              />
+              <NavLink to={"/profile/" + u.id}>
+                <img
+                  src={u.photos.small != null ? u.photos.small : userPhoto}
+                  alt=""
+                  className={styles.userPhoto}
+                />
+              </NavLink>
             </div>
             <div>
               {u.followed ? (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)} // если в массиве хоть id на которую нажали есть в массиве true и кнопка disable
                   onClick={() => {
                     props.unFollow(u.id);
                   }}
@@ -47,6 +51,7 @@ let Users = (props) => {
                 </button>
               ) : (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)} // если в массиве хоть id на которую нажали есть в массиве true и кнопка disable
                   onClick={() => {
                     props.follow(u.id);
                   }}
