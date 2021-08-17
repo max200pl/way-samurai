@@ -30,6 +30,17 @@ class ProfileStatus extends React.Component {
     });
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    // метод жизненного цикла при изменении local state вызывается componentDidUpdate
+    // можно отследить предыдущие значения state с текущими через prevProps, prevState
+    if (prevProps.status !== this.props.status) {
+      // если предыдущее значение с props изменилось тогда перезаписываем новый статус
+      this.setState({
+        status: this.props.status,
+      });
+    }
+  }
+
   render() {
     return (
       <div>
