@@ -1,9 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getUserProfile } from "../../redux/profile-reducer";
+import {
+  getUserProfile,
+  getStatus,
+  updateStatus,
+} from "../../redux/profile-reducer";
 import { withRouter } from "react-router-dom";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
@@ -14,19 +17,28 @@ class ProfileContainer extends React.Component {
     }
 
     this.props.getUserProfile(userId); // thunk
+    this.props.getStatus(userId); // thunk
   }
 
   render() {
-    return <Profile {...this.props} profile={this.props.profile} />; // получаем все пропсы через spread operator
+    return (
+      <Profile
+        {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatus}
+      />
+    ); // получаем все пропсы через spread operator
   }
 }
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
+  status: state.profilePage.status,
 });
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile }),
-  withRouter, //* HOC для редиректа если пользователь не авторизирован
-  withAuthRedirect
+  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
+
+  withRouter //* HOC для редиректа если пользователь не авторизирован
 )(ProfileContainer);
