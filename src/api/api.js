@@ -68,20 +68,19 @@ export const authAPI = {
                )
      },
 
-     login(formData)
+     login(email, password, rememberMe = false)
      {
-          debugger
           return instance
                .post(
-                    `auth/login`, { ...formData }
+                    `auth/login`, { email, password, rememberMe }
                )
      },
 
-     unLogin()
+     logout()
      {
           return instance
-               .delete(
-                    `auth/login`, {}
+               .delete( // удаляем coke 
+                    `auth/login`
                )
      }
 }
