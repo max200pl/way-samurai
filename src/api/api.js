@@ -64,8 +64,24 @@ export const authAPI = {
      {
           return instance
                .get(
-                    //получаем выбранную заданную изначально страницу и количество пользователей
                     `auth/me`,
+               )
+     },
+
+     login(formData)
+     {
+          debugger
+          return instance
+               .post(
+                    `auth/login`, { ...formData }
+               )
+     },
+
+     unLogin()
+     {
+          return instance
+               .delete(
+                    `auth/login`, {}
                )
      }
 }
