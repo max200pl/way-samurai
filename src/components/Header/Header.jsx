@@ -6,7 +6,7 @@ const Header = (props) => {
   return (
     <header className={classes.header}>
       <div className={classes.loginBlock}>
-        {props.isAuth ? (
+        {props.isAuth ? ( // отображение пользователя кнопки для входа в систему
           <div>
             {props.login} - <button onClick={props.logout}>Log out</button>
           </div>

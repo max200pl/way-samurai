@@ -5,6 +5,7 @@ import { Field, reduxForm } from "redux-form";
 import { login, logout } from "../../redux/auth-reducer";
 import { required } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
+import style from "./../common/FormsControls/FormsControls.module.css";
 
 const LoginForm = (props) => {
   return (
@@ -30,6 +31,10 @@ const LoginForm = (props) => {
         <Field type={"checkbox"} name={"rememberMe"} component={Input} />
         remember me
       </div>
+
+      {props.error && (
+        <div className={style.formSummaryError}>{props.error}</div>
+      )}
       <div>
         <button>Login</button>
       </div>
@@ -43,11 +48,14 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe);
+    props.login(formData.email, formData.password, formData.rememberMe); // login это thunk
   };
+
   if (props.isAuth) {
+    // редирект на страницу если пользователь зарегистрирован
     return <Redirect to={"/profile"} />;
   }
+
   return (
     <div>
       <h1>Login</h1>
@@ -57,6 +65,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  // получаем данные с State для проверки на то что пользователь зарегистрирован
   isAuth: state.auth.isAuth,
 });
 

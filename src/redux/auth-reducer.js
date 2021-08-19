@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -5,7 +6,7 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 
 let initialState = {
-     id: null,
+     userId: null,
      email: null,
      login: null,
      isAuth: false
@@ -24,7 +25,7 @@ const authReducer = (state = initialState, action) =>
      }
 }
 //* ФУНКЦИИ ВСПОМОГАТЕЛЬНЫЕ actionCreator - для передачи типа action для dispatch(action)
-export const setAuthUserData = (id, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { id, email, login, isAuth } })
+export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
 export const getAuthUserData = () => (dispatch) =>
 {
@@ -43,6 +44,9 @@ export const login = (email, password, rememberMe) => (dispatch) => //login эт
      {
           if (response.data.resultCode === 0) {
                dispatch(getAuthUserData())
+          } else {
+               let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error" // если ошибка то ответ больше 0 
+               dispatch(stopSubmit("login", { _error: message }))
           }
      });
 }
