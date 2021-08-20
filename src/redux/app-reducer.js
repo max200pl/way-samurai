@@ -28,9 +28,9 @@ export const initializeApp = () => (dispatch) =>
 
 
 
-     Promise.all([promise]).then(() => // Когда все promise resolved тогда завернем их в массив и 
+     Promise.all([promise]).then(() => // Когда все promise resolved тогда завернем их в массив 
      {
-          dispatch(initializedSuccess())
+          dispatch(initializedSuccess()) // И потом dispatch initializedSuccess
      })
 
 }

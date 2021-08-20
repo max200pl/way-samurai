@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 ReactDOM.render(
 
      <BrowserRouter>
-          <Provider store={store}>
+          <Provider store={store}> {/* Provider компонент react-redux который использует contextApi для того что-бы дети получили Store  */}
                <App />
           </Provider>
      </BrowserRouter>,

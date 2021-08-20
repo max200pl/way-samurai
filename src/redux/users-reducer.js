@@ -83,12 +83,13 @@ export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_I
 
 //*thunk in redux  это функция которая делает асинхронную работу и внутри делает кучу dispatch
 
-export const getUsers = (currentPage, pageSize) =>
+export const requestUsers = (page, pageSize) =>
 {
      return (dispatch) =>
      {
           dispatch(toggleIsFetching(true));
-          usersAPI.getUsers(currentPage, pageSize)
+          dispatch(setCurrentPage(page));
+          usersAPI.getUsers(page, pageSize)
                .then((data) =>
                {
                     dispatch(toggleIsFetching(false));
