@@ -1,70 +1,53 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
-class ProfileStatus extends React.Component {
-  // в памяти хранится объект у него есть свой локальный Sate в отличии от функциональной компоненты
+const ProfileStatusWithHooks = (props) => {
+  // editMode  наше значение
+  // setEditMode  функция которая изменяет значение
 
-  state = {
-    // localState
-    editMode: false,
-    status: this.props.status, //тот статус который пришел с STATE
+  let [editMode, setEditMode] = useState(false); // false стартовое значение
+  let [status, setStatus] = useState(props.status);
+
+  // useEffect // когда произойдет отрисовка jsx разметки
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
+
+  const activateEditMode = () => {
+    setEditMode(true);
   };
 
-  activateEditMode = () => {
-    this.setState({
-      // setState является асинхронным
-      // setState метод который берется с React.Component
-      editMode: true, // editMode режим редактирования
-    });
+  const deactivateEditMode = () => {
+    setEditMode(false);
+    props.updateStatus(status);
   };
 
-  deactivateEditMode = () => {
-    this.setState({
-      editMode: false,
-    });
-    this.props.updateStatus(this.state.status);
+  const onStatusChange = (e) => {
+    setStatus(e.currentTarget.value);
   };
 
-  onStatusChange = (e) => {
-    this.setState({
-      status: e.currentTarget.value,
-    });
-  };
+  return (
+    <div>
+      {!editMode && (
+        <div>
+          <span onDoubleClick={activateEditMode}>
+            {props.status || "-----------"}
+          </span>
+        </div>
+      )}
+      {!editMode && false && (
+        <div>
+          <input
+            onChange={onStatusChange}
+            autoFocus={true}
+            onBlur={deactivateEditMode}
+            value={status}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
-  componentDidUpdate(prevProps, prevState) {
-    // метод жизненного цикла при изменении local state вызывается componentDidUpdate
-    // можно отследить предыдущие значения state с текущими через prevProps, prevState
-    if (prevProps.status !== this.props.status) {
-      // если предыдущее значение с props изменилось тогда перезаписываем новый статус
-      this.setState({
-        status: this.props.status,
-      });
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        {!this.state.editMode && (
-          <div>
-            <span onDoubleClick={this.activateEditMode}>
-              {this.props.status || "-----------"}
-            </span>
-          </div>
-        )}
-
-        {this.state.editMode && (
-          <div>
-            <input
-              onChange={this.onStatusChange}
-              autoFocus={true}
-              onBlur={this.deactivateEditMode}
-              value={this.state.status}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
-
-export default ProfileStatus;
+export default ProfileStatusWithHooks;
