@@ -7,7 +7,12 @@ import {
 import { Textarea } from "../../common/FormsControls/FormsControls";
 import s from "./MyPost.module.css";
 import Post from "./Post/Post";
-const MyPost = (props) => {
+const MyPost = React.memo((props) => {
+  // Так как используем PureComponent а не Component
+  /*  shouldComponentUpdate(netProps, nextState) {
+    return netProps !== this.props || nextState !== this.state;
+  } */
+
   let postElements = props.posts.map((post) => (
     <Post message={post.message} likeCount={post.likeCount} key={post.id} />
   ));
@@ -25,7 +30,7 @@ const MyPost = (props) => {
       <div className={s.posts}>{postElements}</div>
     </div>
   );
-};
+});
 
 const maxLength10 = maxLengthCreator(10);
 
