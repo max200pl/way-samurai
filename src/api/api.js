@@ -64,8 +64,23 @@ export const authAPI = {
      {
           return instance
                .get(
-                    //получаем выбранную заданную изначально страницу и количество пользователей
                     `auth/me`,
+               )
+     },
+
+     login(email, password, rememberMe = false)
+     {
+          return instance
+               .post(
+                    `auth/login`, { email, password, rememberMe }
+               )
+     },
+
+     logout()
+     {
+          return instance
+               .delete( // удаляем coke 
+                    `auth/login`
                )
      }
 }

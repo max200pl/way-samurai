@@ -1,10 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import {
-  sendMessageCreator,
-  updateNewMessageBodyCreator,
-} from "../../redux/dialogs-reducer";
+import { sendMessageCreator } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 
 const mapStateToPropsForRedirect = (state) => {
@@ -17,11 +14,8 @@ const mapStateToPropsForRedirect = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // будем передавать наши CallBack в презентационную компоненту
   return {
-    updateNewMessageBody: (body) => {
-      dispatch(updateNewMessageBodyCreator(body));
-    },
-    sendMessage: () => {
-      dispatch(sendMessageCreator());
+    sendMessage: (newMessageBody) => {
+      dispatch(sendMessageCreator(newMessageBody));
     },
   };
 };

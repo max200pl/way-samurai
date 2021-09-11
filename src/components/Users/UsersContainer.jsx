@@ -1,16 +1,23 @@
 import { connect } from "react-redux";
 import {
   follow,
-  getUsers,
   setCurrentPage,
   toggleFollowingProgress,
   unFollow,
+  requestUsers,
 } from "../../redux/users-reducer";
 import React from "react";
 import Users from "./Users";
 import PreLouder from "../common/Preloader/Preloader";
 import { compose } from "redux";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import {
+  getPageSize,
+  getUsers,
+  getTotalUsersCount,
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
   /*  constructor(props) { // по умолчанию за кадром 
@@ -19,12 +26,12 @@ class UsersContainer extends React.Component {
 
   componentDidMount() {
     // данный метод вызывается после полной отрисовки компоненты
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
     // получем номер страницы по клику onClick у span
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -46,7 +53,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) =>
+/* let mapStateToProps = (state) =>
   // передаем данные из state в UsersContainer
   {
     return {
@@ -58,14 +65,36 @@ let mapStateToProps = (state) =>
       followingInProgress: state.usersPage.followingInProgress, // прокидываем данные для флага подписки пользователя в компоненту UsersContainer
     };
   };
+ */
+
+let mapStateToProps = (state) =>
+  // передаем данные из state в UsersContainer
+  {
+    return {
+      users: getUsers(state), // getUsers() это функция selector
+      pageSize: getPageSize(state),
+      totalUsersCount: getTotalUsersCount(state),
+      currentPage: getCurrentPage(state),
+      isFetching: getIsFetching(state), // получение флага загрузки данных
+      followingInProgress: getFollowingInProgress(state), // прокидываем данные для флага подписки пользователя в компоненту UsersContainer
+    };
+  };
 
 export default compose(
-  withAuthRedirect,
+  //withAuthRedirect,
+  /**
+   * connect -- это функция которая создает контейнерную компоненту над презентационной
+   * отрисует презентационную
+   * получает данные Store через contextApi
+   * закидывает в качестве props данные в презентационную через свойства функции mapStateToProps, mapDispatchToProps
+   * если state изменился его часть тот объект который был скопирован, тогда перерисовывает презентационную компоненту и mapStateToProps вызывается по новой
+   */
+
   connect(mapStateToProps, {
     follow,
     unFollow,
     setCurrentPage,
     toggleFollowingProgress,
-    getUsers,
+    requestUsers,
   })
 )(UsersContainer);

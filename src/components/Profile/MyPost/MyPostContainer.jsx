@@ -1,8 +1,5 @@
 import { connect } from "react-redux";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
+import { addPostActionCreator } from "../../../redux/profile-reducer";
 import MyPost from "./MyPost";
 
 const mapStateToProps = (state) => {
@@ -16,13 +13,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // будем передавать наши CallBack в презентационную компоненту
   return {
-    addPost: () => {
-      dispatch(addPostActionCreator());
-    },
-
-    updateNewPostText: (text) => {
-      let action = updateNewPostTextActionCreator(text);
-      dispatch(action);
+    addPost: (newPostTex) => {
+      dispatch(addPostActionCreator(newPostTex));
     },
   };
 };
